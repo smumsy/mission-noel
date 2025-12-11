@@ -1,0 +1,177 @@
+/* RESET & BASICS */
+body {
+    background: radial-gradient(circle, #287231 0%, rgb(55, 90, 44) 100%); /* Vert sapin profond */
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+.subtitle{
+    font-style: italic;
+}
+h1, h2, h3 {
+    font-family: 'Mountains of Christmas', cursive;
+    font-weight: 700;
+    color: #F1D570; /* Doré */
+    text-shadow: 2px 2px 4px #000;
+}
+
+h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+h2 { font-size: 2.5rem; }
+
+.container {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 2px solid #D42426; /* Rouge Noël */
+    box-shadow: 0 0 20px rgba(212, 36, 38, 0.5);
+    max-width: 600px;
+    width: 90%;
+    z-index: 10;
+    position: relative;
+}
+
+/* COUNTDOWN STYLE */
+#countdown {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 2rem 0;
+}
+
+.time-box {
+    background: #D42426;
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 60px;
+    box-shadow: 0 4px 0 #8b1012;
+}
+
+.time-box span {
+    display: block;
+    font-weight: bold;
+}
+
+.time-box span:first-child {
+    font-size: 1.8rem;
+    font-family: 'Mountains of Christmas', cursive;
+}
+
+.time-box .label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin-top: 5px;
+}
+
+/* INPUT SECTION */
+input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 60%;
+    font-size: 1rem;
+    margin-right: 5px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #F1D570;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+button:hover {
+    transform: scale(1.05);
+    background-color: #ffeeb0;
+}
+
+#error-msg {
+    color: #ff6b6b;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* HINTS */
+#hints-container {
+    margin-top: 2rem;
+    border-top: 1px dashed #fff;
+    padding-top: 1rem;
+}
+
+#hints-list {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+#hints-list li {
+    background: rgba(255, 255, 255, 0.1);
+    margin-bottom: 8px;
+    padding: 8px;
+    border-radius: 5px;
+    border-left: 4px solid #F1D570;
+}
+
+/* LETTER */
+.letter-content {
+    background: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 5px;
+    font-family: 'Mountains of Christmas', cursive;
+    font-size: 1.4rem;
+    line-height: 1.6;
+    transform: rotate(-2deg);
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+}
+
+/* UTILS */
+.hidden { display: none !important; }
+
+.fail-text-italic{
+    font-style: italic;
+}
+
+/* SNOW ANIMATION (CSS Only) */
+.snowflake {
+    color: #fff;
+    font-size: 1em;
+    font-family: Arial;
+    text-shadow: 0 0 1px #000;
+    position: fixed;
+    top: -10%;
+    z-index: 1;
+    animation-name: snowflakes-fall, snowflakes-shake;
+    animation-duration: 10s, 3s;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+}
+
+@keyframes snowflakes-fall { 0% { top: -10%; } 100% { top: 100%; } }
+@keyframes snowflakes-shake { 0% { transform: translateX(0px); } 50% { transform: translateX(80px); } 100% { transform: translateX(0px); } }
+
+.snowflake:nth-of-type(1) { left: 1%; animation-delay: 0s, 0s; }
+.snowflake:nth-of-type(2) { left: 10%; animation-delay: 1s, 1s; }
+.snowflake:nth-of-type(3) { left: 20%; animation-delay: 6s, .5s; }
+.snowflake:nth-of-type(4) { left: 30%; animation-delay: 4s, 2s; }
+.snowflake:nth-of-type(5) { left: 40%; animation-delay: 2s, 2s; }
+.snowflake:nth-of-type(6) { left: 50%; animation-delay: 8s, 3s; }
+.snowflake:nth-of-type(7) { left: 60%; animation-delay: 6s, 2s; }
+.snowflake:nth-of-type(8) { left: 70%; animation-delay: 2.5s, 1s; }
+.snowflake:nth-of-type(9) { left: 80%; animation-delay: 1s, 0s; }
+.snowflake:nth-of-type(10) { left: 90%; animation-delay: 3s, 1.5s; }
+
+
+
+

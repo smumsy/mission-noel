@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mission de Noël 🎅</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="snowflakes" aria-hidden="true">
+        <div class="snowflake">❅</div><div class="snowflake">❆</div><div class="snowflake">❅</div>
+        <div class="snowflake">❆</div><div class="snowflake">❅</div><div class="snowflake">❆</div>
+        <div class="snowflake">❅</div><div class="snowflake">❆</div><div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+    </div>
+
+    <div class="container">
+        <h1>🎄 Mission Secrète de Noël 🎄</h1>
+        
+        <div id="main-display">
+            <p class="subtitle">Le temps presse...</p>
+            
+            <div id="countdown">
+                <div class="time-box"><span id="days">00</span><span class="label">Jours</span></div>
+                <div class="time-box"><span id="hours">00</span><span class="label">Heures</span></div>
+                <div class="time-box"><span id="minutes">00</span><span class="label">Min</span></div>
+                <div class="time-box"><span id="seconds">00</span><span class="label">Sec</span></div>
+            </div>
+
+            <div class="input-section">
+                <input type="text" id="secret-code" placeholder="Entrez le code secret ici...">
+                <button onclick="checkCode()">Valider 🎁</button>
+                <p id="error-msg" class="hidden">Ce n'est pas le bon code, petit lutin !</p>
+            </div>
+
+            <div id="hints-container">
+                <h3>📜 Indices du Père Noël</h3>
+                <p id="no-hint">Aucun indice disponible pour le moment...</p>
+                <ul id="hints-list">
+                    </ul>
+            </div>
+        </div>
+
+        <div id="success-letter" class="hidden">
+            <h2>✨ Bravo ! ✨</h2>
+            <div class="letter-content">
+                <p>Ma chère,</p>
+                <p>
+                    Si tu lis ceci, c'est que tu as brillamment réussi ta mission.
+                    <br><br>
+                    [ICI TU POURRAS ÉCRIRE TON TEXTE PERSONNEL DE NOËL]
+                    <br><br>
+                    Joyeux Noël ! 🎅
+                </p>
+            </div>
+        </div>
+
+        <div id="game-over" class="hidden">
+            <h2>⏰ Trop tard !</h2>
+            <p class="fail-text">Le temps est écoulé, va demander conseil à ton lutin favori.</p>
+            <p class="fail-text-italic">"Miss Satre, trois tours devraient suffire."</p>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
