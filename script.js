@@ -3,10 +3,10 @@
 const SECRET_CODE = "LUTIN2025"; 
 
 // 2. La Date cible : Vendredi 19 Décembre 2025 à 15h45
-const targetDate = new Date("December 12, 2025 14:06:00").getTime();
+const targetDate = new Date("December 19, 2025 15:45:00").getTime();
 // 3. Les Indices (Date d'apparition et Texte)
 // Indice 1 : Mercredi 17 à 20h00
-const hint1Date = new Date("December 12, 2025 14:05:00").getTime();
+const hint1Date = new Date("December 17, 2025 20:00:00").getTime();
 const hint1Text = "Indice 1 : Regarde sous le tapis du salon...";
 
 // Indice 2 : Jeudi 18 à 20h00
