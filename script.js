@@ -6,11 +6,10 @@ const SECRET_CODE = "LUTIN2025";
 const targetDate = new Date("December 19, 2025 15:45:00").getTime();
 
 // 3. Les Indices (Date d'apparition et Texte)
-// IMPORTANT : Les dates DOIVENT être dans l'ordre chronologique.
 const HINTS_CONFIG = [
-    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 1 : Regarde sous le tapis du salon..." },
-    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 2 : Ce n'est pas loin de la machine à café..." },
-    { date: new Date("December 19, 2025 10:00:00").getTime(), text: "Indice 3 : L'ultime indice est dans le sapin !" } // NOUVEL INDICE
+    { date: new Date("December 16, 2025 15:45:00").getTime(), text: "Indice 1 : Le code secret est bien present sur la lettre corrompu..." },
+    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 2 : Avec ou sans lunettes, tout n'est pas visible par l'œil humain..." },
+    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 3 : Si la chaleur de ton coeur ne suffit pas, essaies en une autre..." }
 ];
 // ---------------------------------
 
@@ -92,7 +91,7 @@ function checkHints(currentTime) {
         // On met la première lettre en majuscule
         const capitalizedDate = nextDateFormatted.charAt(0).toUpperCase() + nextDateFormatted.slice(1);
         
-        nextHintDateEl.innerHTML = `**Prochain indice disponible le :** ${capitalizedDate}`;
+        nextHintDateEl.innerHTML = `Prochain indice disponible le : ${capitalizedDate}`;
         nextHintDateEl.classList.remove("hidden");
     } else {
         // Tous les indices ont été dévoilés
