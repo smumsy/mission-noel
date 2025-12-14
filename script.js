@@ -4,15 +4,14 @@ const SECRET_CODE = "LUTIN2025";
 
 // 2. La Date cible : Vendredi 19 Décembre 2025 à 15h45
 const targetDate = new Date("December 19, 2025 15:45:00").getTime();
+
 // 3. Les Indices (Date d'apparition et Texte)
-// Indice 1 : Mercredi 17 à 20h00
-const hint1Date = new Date("December 17, 2025 20:00:00").getTime();
-const hint1Text = "Indice 1 : Regarde sous le tapis du salon...";
-
-// Indice 2 : Jeudi 18 à 20h00
-const hint2Date = new Date("December 18, 2025 20:00:00").getTime();
-const hint2Text = "Indice 2 : Ce n'est pas loin de la machine à café...";
-
+// IMPORTANT : Les dates DOIVENT être dans l'ordre chronologique.
+const HINTS_CONFIG = [
+    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 1 : Regarde sous le tapis du salon..." },
+    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 2 : Ce n'est pas loin de la machine à café..." },
+    { date: new Date("December 19, 2025 10:00:00").getTime(), text: "Indice 3 : L'ultime indice est dans le sapin !" } // NOUVEL INDICE
+];
 // ---------------------------------
 
 // Éléments du DOM
@@ -27,6 +26,7 @@ const successLetter = document.getElementById("success-letter");
 const gameOver = document.getElementById("game-over");
 const hintsList = document.getElementById("hints-list");
 const noHintMsg = document.getElementById("no-hint");
+const nextHintDateEl = document.getElementById("next-hint-date"); // NOUVEL ÉLÉMENT
 
 // Fonction de mise à jour du compte à rebours
 const countdown = setInterval(() => {
@@ -61,25 +61,49 @@ const countdown = setInterval(() => {
 function checkHints(currentTime) {
     let hintsHTML = "";
     let hasHint = false;
+    let nextHint = null;
 
-    if (currentTime >= hint1Date) {
-        hintsHTML += `<li>${hint1Text}</li>`;
-        hasHint = true;
+    // 1. Itère sur la configuration pour afficher les indices disponibles et trouver le prochain
+    for (const hint of HINTS_CONFIG) {
+        if (currentTime >= hint.date) {
+            // L'indice est disponible
+            hintsHTML += `<li>${hint.text}</li>`;
+            hasHint = true;
+        } else if (!nextHint) {
+            // C'est le premier indice non disponible que l'on rencontre (le prochain)
+            nextHint = hint;
+        }
     }
     
-    if (currentTime >= hint2Date) {
-        hintsHTML += `<li>${hint2Text}</li>`;
-        hasHint = true;
-    }
-
+    // 2. Affichage des indices
     if (hasHint) {
         noHintMsg.classList.add("hidden");
         hintsList.innerHTML = hintsHTML;
+    } else {
+        noHintMsg.classList.remove("hidden");
+    }
+    
+    // 3. Affichage de la date du prochain indice
+    if (nextHint) {
+        // Formatage de la date en français (ex: "Mercredi 17 Décembre à 20h00")
+        const options = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
+        const nextDateFormatted = new Date(nextHint.date).toLocaleDateString('fr-FR', options);
+        
+        // On met la première lettre en majuscule
+        const capitalizedDate = nextDateFormatted.charAt(0).toUpperCase() + nextDateFormatted.slice(1);
+        
+        nextHintDateEl.innerHTML = `**Prochain indice disponible le :** ${capitalizedDate}`;
+        nextHintDateEl.classList.remove("hidden");
+    } else {
+        // Tous les indices ont été dévoilés
+        nextHintDateEl.innerHTML = `Tous les indices ont été dévoilés !`;
     }
 }
 
+
 // Fonction pour vérifier le code secret
 function checkCode() {
+    // La fonction reste inchangée
     const userCode = secretInput.value.trim().toUpperCase();
 
     if (userCode === SECRET_CODE) {
