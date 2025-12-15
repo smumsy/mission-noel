@@ -8,8 +8,8 @@ const targetDate = new Date("December 19, 2025 15:45:00").getTime();
 // 3. Les Indices (Date d'apparition et Texte)
 const HINTS_CONFIG = [
     { date: new Date("December 16, 2025 15:45:00").getTime(), text: "Indice 1 : Le code secret est bien present sur la lettre corrompu..." },
-    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 2 : Avec ou sans lunettes, tout n'est pas visible par l'œil humain..." },
-    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 3 : Si la chaleur de ton coeur ne suffit pas, essaies en une autre..." }
+    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 2 : Si la chaleur de ton coeur ne suffit pas, essaies en une autre..." },
+    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 3 : Mais pourquoi cette lettre est imbibée d'une odeur agrumeuse..." }
 ];
 // ---------------------------------
 
