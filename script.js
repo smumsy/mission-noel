@@ -1,6 +1,6 @@
 // --- CONFIGURATION A MODIFIER ---
 // 1. Le Code Secret (met ce que tu veux, en majuscules)
-const SECRET_CODE = "LUTIN2025"; 
+const SECRET_CODE = "JA2025"; 
 
 // 2. La Date cible : Vendredi 19 Décembre 2025 à 15h45
 const targetDate = new Date("December 19, 2025 15:45:00").getTime();
@@ -8,8 +8,8 @@ const targetDate = new Date("December 19, 2025 15:45:00").getTime();
 // 3. Les Indices (Date d'apparition et Texte)
 const HINTS_CONFIG = [
     { date: new Date("December 16, 2025 15:45:00").getTime(), text: "Indice 1 : Le code secret est bien present sur la lettre corrompu..." },
-    { date: new Date("December 17, 2025 20:00:00").getTime(), text: "Indice 2 : Si la chaleur de ton coeur ne suffit pas, essaies en une autre..." },
-    { date: new Date("December 18, 2025 20:00:00").getTime(), text: "Indice 3 : Mais pourquoi cette lettre est imbibée d'une odeur agrumeuse..." }
+    { date: new Date("December 17, 2025 15:45:00").getTime(), text: "Indice 2 : Si la chaleur de ton coeur ne suffit pas, essaies en une autre..." },
+    { date: new Date("December 18, 2025 15:45:00").getTime(), text: "Indice 3 : Mais pourquoi cette lettre est imbibée d'une odeur agrumeuse..." }
 ];
 // ---------------------------------
 
