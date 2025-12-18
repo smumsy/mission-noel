@@ -3,7 +3,7 @@
 const SECRET_CODE = "JA2025"; 
 
 // 2. La Date cible : Vendredi 19 Décembre 2025 à 15h45
-const targetDate = new Date("December 19, 2025 15:45:00").getTime();
+const targetDate = new Date("December 18, 2025 15:45:00").getTime();
 
 // 3. Les Indices (Date d'apparition et Texte)
 const HINTS_CONFIG = [
