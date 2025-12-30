@@ -2,73 +2,235 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mission de Noël 🎅</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pour toi ❤️</title>
+    <style>
+        /* --- RESET ET CONFIGURATION DE BASE --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, #2b1010 0%, #000000 100%);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            perspective: 1000px; /* Nécessaire pour la 3D */
+            touch-action: manipulation;
+        }
+
+        /* --- TEXTE D'INSTRUCTION ET QUESTION --- */
+        .instruction {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            margin-bottom: 50px;
+            transition: opacity 1s;
+            position: absolute;
+            top: 15%;
+            animation: pulse 2s infinite;
+        }
+
+        .question {
+            position: absolute;
+            bottom: 15%;
+            color: #fff;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 2.5rem;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 2s ease 1s; /* Apparaît après l'ouverture */
+            text-align: center;
+            width: 90%;
+            pointer-events: none;
+        }
+
+        /* --- LA SCÈNE 3D --- */
+        .scene {
+            width: 100px;
+            height: 100px;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(-20deg) rotateY(45deg);
+            transition: transform 1s;
+            cursor: pointer;
+        }
+
+        /* --- LA BOÎTE (CUBE) --- */
+        .box {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform-style: preserve-3d;
+        }
+
+        .face {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #800000, #500000); /* Rouge velours */
+            border: 1px solid #4a0000;
+        }
+
+        /* Positionnement des faces du bas de la boîte */
+        .bottom { transform: rotateX(-90deg) translateZ(50px); box-shadow: 0 0 30px rgba(0,0,0,0.8); }
+        .front  { transform: translateZ(50px); height: 50px; top: 50px; }
+        .back   { transform: rotateY(180deg) translateZ(50px); height: 50px; top: 50px; }
+        .left   { transform: rotateY(-90deg) translateZ(50px); height: 50px; top: 50px; }
+        .right  { transform: rotateY(90deg) translateZ(50px); height: 50px; top: 50px; }
+
+        /* Intérieur de la boîte (velours noir/rouge) */
+        .face::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.3); /* Assombri l'intérieur */
+        }
+
+        /* --- LE COUVERCLE (LID) --- */
+        .lid-container {
+            position: absolute;
+            width: 100px;
+            height: 50px; /* Moitié de la hauteur */
+            top: 0;
+            transform-style: preserve-3d;
+            transform-origin: back; /* L'axe de rotation est à l'arrière */
+            transition: transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Faces du couvercle */
+        .lid-top   { transform: rotateX(90deg) translateZ(50px); width: 100px; height: 100px; background: #900000; }
+        .lid-front { transform: translateZ(50px); width: 100px; height: 50px; background: #800000; }
+        .lid-left  { transform: rotateY(-90deg) translateZ(50px); width: 100px; height: 50px; background: #800000; }
+        .lid-right { transform: rotateY(90deg) translateZ(50px); width: 100px; height: 50px; background: #800000; }
+        .lid-back  { transform: rotateY(180deg) translateZ(50px); width: 100px; height: 50px; background: #800000; }
+
+        /* --- LA BAGUE --- */
+        .ring-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(-90deg) translateZ(10px); /* Centrée et posée */
+            transform-style: preserve-3d;
+        }
+
+        .ring {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #FFD700; /* Or */
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FFD700, inset 0 0 10px #FFD700;
+            position: relative;
+            transform: rotateX(80deg); /* Couchée dans la boîte */
+        }
+
+        /* Le diamant */
+        .diamond {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: radial-gradient(circle, #fff, #ccf);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            box-shadow: 0 0 20px 5px rgba(255, 255, 255, 0.8);
+            animation: sparkle 1.5s infinite alternate;
+        }
+
+        /* --- ANIMATIONS & ETATS --- */
+        
+        /* Quand la classe 'open' est ajoutée via JS */
+        .is-open .lid-container {
+            transform: rotateX(100deg); /* Ouvre le couvercle vers l'arrière */
+        }
+
+        .is-open ~ .question {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .is-open ~ .instruction {
+            opacity: 0;
+        }
+
+        /* Animation de la scène pour mieux voir */
+        .is-open.scene {
+            transform: rotateX(-30deg) rotateY(0deg) scale(1.2); /* Zoom et redresse face caméra */
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        @keyframes sparkle {
+            0% { transform: translateX(-50%) scale(1); filter: brightness(1); }
+            100% { transform: translateX(-50%) scale(1.2); filter: brightness(1.5); }
+        }
+
+    </style>
 </head>
 <body>
 
-    <div class="snowflakes" aria-hidden="true">
-        <div class="snowflake">❅</div><div class="snowflake">❆</div><div class="snowflake">❅</div>
-        <div class="snowflake">❆</div><div class="snowflake">❅</div><div class="snowflake">❆</div>
-        <div class="snowflake">❅</div><div class="snowflake">❆</div><div class="snowflake">❅</div>
-        <div class="snowflake">❆</div>
+    <div class="instruction">Touche l'écrin pour l'ouvrir...</div>
+
+    <div class="scene" id="scene">
+        <div class="box">
+            <div class="face bottom"></div>
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face left"></div>
+            <div class="face right"></div>
+
+            <div class="ring-wrapper">
+                <div class="ring">
+                    <div class="diamond"></div>
+                </div>
+            </div>
+
+            <div class="lid-container">
+                <div class="face lid-top"></div>
+                <div class="face lid-front"></div>
+                <div class="face lid-back"></div>
+                <div class="face lid-left"></div>
+                <div class="face lid-right"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <h1>🎄 Mission Secrète de Noël 🎄</h1>
-        
-        <div id="main-display">
-            <p class="subtitle">Le temps presse...</p>
-            
-            <div id="countdown">
-                <div class="time-box"><span id="days">00</span><span class="label">Jours</span></div>
-                <div class="time-box"><span id="hours">00</span><span class="label">Heures</span></div>
-                <div class="time-box"><span id="minutes">00</span><span class="label">Min</span></div>
-                <div class="time-box"><span id="seconds">00</span><span class="label">Sec</span></div>
-            </div>
-
-            <div class="input-section">
-                <input type="text" id="secret-code" placeholder="Entrez le code secret ici...">
-                <button onclick="checkCode()">Valider 🎁</button>
-                <p id="error-msg" class="hidden">Ce n'est pas le bon code, petit lutin !</p>
-            </div>
-
-            <div id="hints-container">
-                <h3>📜 Indices du Père Noël</h3>
-                <p id="next-hint-date" class="subtitle"></p> 
-                <p id="no-hint">Aucun indice disponible pour le moment...</p>
-                <ul id="hints-list">
-                    </ul>
-            </div>
-
-        </div>
-
-        <div id="success-letter" class="hidden">
-            <h2>✨ Bravo ! ✨</h2>
-            <div class="letter-content">
-                <p>Ma chère,</p>
-                <p>
-                    Si tu lis ceci, c'est que tu as brillamment réussi ta mission.
-                    <br><br>
-                    On t'a peut-être fait croire l'inverse, mais l'amour, ça ne se mérite pas. On n'a pas à prouver qu'on vaut le coup, l'amour ça se vit, ça se transmet sans condition. Parfois, ça arrive de tout donner à quelqu'un qui n'a pas la même langue affective que nous, et... c'est là que ça coince... Tu peux te plier, te tordre, t'effacer pour avoir sa validation... si en face ça ne répond pas, ça ne changera rien. On n'aime pas quelqu'un à la carte, on prend tout. La joie de vivre comme les coups de mou, les failles. L'anxiété, ce n'est pas un défaut, c'est un climat. Il y a des saisons. Quand on aime, on aime aussi sous la pluie. On prend ce qui est là, et si un jour ça ne nourrit plus, ça tire vers le bas, on s'en va. Mais jamais on n'essaie de changer l'autre. On l'accueille, on respire ensemble, on l'aime en entier, parce qu'on sait que chacun de nous donne du plus fort qu'il peut, sinon ce n'est plus de l'amour, juste de l'usure. Si un jour tu as peur que je t'aime moins, parce que ton soleil se planque derrière un ciel plein d'orages, je dirai juste : Je t'aime.
-                    <br><br>
-                    Joyeux Noël ! 🎅
-                </p>
-            </div>
-        </div>
-
-        <div id="game-over" class="hidden">
-            <h2>⏰ Trop tard !</h2>
-            <p class="fail-text">Le temps est écoulé, va demander conseil à ton lutin favori.</p>
-            <p class="fail-text-italic">"Miss Satre, trois tours devraient suffire."</p>
-        </div>
-
+    <div class="message question">
+        Veux-tu m'épouser ?
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const scene = document.getElementById('scene');
+            let isOpen = false;
+
+            function openBox() {
+                if (!isOpen) {
+                    scene.classList.add('is-open');
+                    isOpen = true;
+                    
+                    // Optionnel: Petit effet de vibration sur mobile
+                    if (navigator.vibrate) {
+                        navigator.vibrate(200); 
+                    }
+                }
+            }
+
+            // Fonctionne au clic (souris) et au toucher (téléphone)
+            body.addEventListener('click', openBox);
+            body.addEventListener('touchstart', openBox);
+        });
+    </script>
 </body>
 </html>
